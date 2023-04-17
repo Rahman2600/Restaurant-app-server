@@ -11,6 +11,9 @@ const restaurantSchema = new Schema(
       trim: true,
       minlength: 3,
     },
+    menu: {
+      type: Schema.Types.Mixed,
+    },
   },
   {
     timestamps: true,
