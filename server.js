@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const restaurantsRouter = require("./routes/restaurants");
 
 const app = express();
 
@@ -18,8 +19,6 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
-
-const restaurantsRouter = require("./routes/restaurants");
 
 app.use("/restaurants", restaurantsRouter);
 

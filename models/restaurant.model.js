@@ -14,6 +14,15 @@ const restaurantSchema = new Schema(
     menu: {
       type: Schema.Types.Mixed,
     },
+    images: {
+      type: Schema.Types.Mixed,
+    },
+    imagesToAssign: {
+      type: Schema.Types.Mixed,
+    },
+    discardedImages: {
+      type: Schema.Types.Mixed,
+    },
   },
   {
     timestamps: true,
