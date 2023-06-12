@@ -52,7 +52,7 @@ router.route("/addImages").post(async (req, res) => {
   let nextImageNum = existingImages.length + 1;
 
   for (let url of newImageURLs) {
-    let path = `${IMAGE_FOLDER_PATH}\/img.jpg`;
+    let path = `${IMAGE_FOLDER_PATH}\/img${nextImageNum}.jpg`;
     downloadImage(url, path);
     nextImageNum++;
   }
@@ -67,6 +67,19 @@ router.route("/addImages").post(async (req, res) => {
       },
     }
   ).then(() => res.json("Images added!"));
+});
+
+router.route("/updateImages").post(async (req, res) => {
+  let { name, images } = req.body;
+
+  Restaurant.updateOne(
+    { name: name },
+    {
+      $set: {
+        images,
+      },
+    }
+  ).then(() => res.json("Images updated!"));
 });
 
 router.route("/sortImages").post(async (req, res) => {
