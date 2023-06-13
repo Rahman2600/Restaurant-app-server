@@ -44,18 +44,28 @@ router.route("/updateMenu").post((req, res) => {
 router.route("/addImages").post(async (req, res) => {
   let { name, images: newImageURLs } = req.body;
 
-  let IMAGE_FOLDER_PATH = "/Users/I554934/images";
+  let IMAGE_FOLDER_PATH = "/Users/I554934/Restaurant-app-server/images";
 
   let restaurant = await Restaurant.findOne({ name });
   let existingImages = restaurant.images;
 
   let nextImageNum = existingImages.length + 1;
 
+  let destDir = `${IMAGE_FOLDER_PATH}\/${name}`;
+  fs.mkdirSync(destDir, { recursive: true });
+
+  let imagesToAssign = [];
+
   for (let url of newImageURLs) {
-    let path = `${IMAGE_FOLDER_PATH}\/img${nextImageNum}.jpg`;
+    let fileName = `img${nextImageNum}.jpg`;
+    imagesToAssign.push(fileName);
+    let path = `${destDir}\/${fileName}`;
+    console.log(path);
     downloadImage(url, path);
     nextImageNum++;
   }
+
+  //save image file names when creating files
 
   Restaurant.updateOne(
     { name: name },
@@ -64,6 +74,7 @@ router.route("/addImages").post(async (req, res) => {
         images: existingImages
           ? existingImages.concat(newImageURLs)
           : newImageURLs,
+        imagesToAssign,
       },
     }
   ).then(() => res.json("Images added!"));

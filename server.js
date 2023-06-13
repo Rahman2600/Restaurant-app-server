@@ -21,6 +21,8 @@ connection.once("open", () => {
 });
 
 app.use("/restaurants", restaurantsRouter);
+app.use(express.static("images"));
+app.use("/static", express.static("images"));
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
