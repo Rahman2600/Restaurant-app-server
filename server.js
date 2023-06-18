@@ -20,7 +20,7 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-app.use("/restaurants", restaurantsRouter);
+app.use("/", restaurantsRouter);
 app.use(express.static("images"));
 app.use("/static", express.static("images"));
 

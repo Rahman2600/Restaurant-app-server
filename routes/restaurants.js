@@ -54,11 +54,11 @@ router.route("/addImages").post(async (req, res) => {
   let destDir = `${IMAGE_FOLDER_PATH}\/${name}`;
   fs.mkdirSync(destDir, { recursive: true });
 
-  let imagesToAssign = [];
+  let picturesToAssign = [];
 
   for (let url of newImageURLs) {
     let fileName = `img${nextImageNum}.jpg`;
-    imagesToAssign.push(fileName);
+    picturesToAssign.push(fileName);
     let path = `${destDir}\/${fileName}`;
     console.log(path);
     downloadImage(url, path);
@@ -74,7 +74,7 @@ router.route("/addImages").post(async (req, res) => {
         images: existingImages
           ? existingImages.concat(newImageURLs)
           : newImageURLs,
-        imagesToAssign,
+        picturesToAssign,
       },
     }
   ).then(() => res.json("Images added!"));
@@ -94,14 +94,14 @@ router.route("/updateImages").post(async (req, res) => {
 });
 
 router.route("/sortImages").post(async (req, res) => {
-  let { name, imagesToAssign, discardedImages } = req.body;
+  let { name, picturesToAssign, picturesToDiscard } = req.body;
 
   Restaurant.updateOne(
     { name: name },
     {
       $set: {
-        imagesToAssign,
-        discardedImages,
+        picturesToAssign,
+        picturesToDiscard,
       },
     }
   ).then(() => res.json("Image Sort updated!"));

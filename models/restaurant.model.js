@@ -17,10 +17,10 @@ const restaurantSchema = new Schema(
     images: {
       type: Schema.Types.Mixed,
     },
-    imagesToAssign: {
+    picturesToAssign: {
       type: Schema.Types.Mixed,
     },
-    discardedImages: {
+    picturesToDiscard: {
       type: Schema.Types.Mixed,
     },
   },
