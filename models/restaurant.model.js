@@ -14,7 +14,7 @@ const restaurantSchema = new Schema(
     menu: {
       type: Schema.Types.Mixed,
     },
-    images: {
+    pictures: {
       type: Schema.Types.Mixed,
     },
     picturesToAssign: {

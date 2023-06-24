@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const restaurantsRouter = require("./routes/restaurants");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -20,6 +21,14 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
 app.use("/", restaurantsRouter);
 app.use(express.static("images"));
 app.use("/static", express.static("images"));
